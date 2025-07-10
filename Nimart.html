@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nim Art Studio - Online Shop</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #f0f4ff, #e2ecff); padding: 20px; }
+    .container { max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #3742fa; margin-bottom: 10px; }
+    h3 { text-align: center; color: #2f3542; margin-bottom: 30px; }
+    label, input { display: block; width: 100%; margin-bottom: 15px; }
+    input[type="text"] { padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 16px; }
+    button { padding: 12px 20px; background: #3742fa; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; width: 100%; }
+    button:hover { background: #2f3ace; }
+    .info { margin-top: 25px; padding: 20px; background: #ecf9ec; border-left: 5px solid #2ed573; border-radius: 8px; font-size: 16px; }
+    .error { color: red; margin-top: 15px; text-align: center; }
+    .thanks { margin-top: 30px; text-align: center; font-weight: bold; color: #1e90ff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nim Art Studio</h1>
+    <h3>Online Shop - Product Information</h3>
+
+    <input type="text" id="barcodeInput" placeholder="Scan or Enter Barcode (e.g. NAS1001)" oninput="lookupProduct()" autofocus />
+
+    <div id="productInfo" class="info" style="display: none;"></div>
+    <div id="errorMsg" class="error"></div>
+    <div id="thankYouMsg" class="thanks" style="display: none;">ස්තුතියි ඔබගේ විශ්වාසය වෙනුවෙන්!</div>
+  </div>
+
+  <script>
+    const productData = {
+       "*NAS1001*": {
+    "name": "jg",
+    "quantity": "jk",
+    "price": "gjk,",
+    "delivery": "gkhj",
+    "customer": "hj",
+    "address": "hj",
+    "phone": "hk",
+    "warranty": "hjg",
+    "date": "j",
+    "total": "ghj"
+  }
+    };
+
+    function lookupProduct() {
+      const code = document.getElementById("barcodeInput").value.trim().toUpperCase();
+      const infoDiv = document.getElementById("productInfo");
+      const errorDiv = document.getElementById("errorMsg");
+      const thanksDiv = document.getElementById("thankYouMsg");
+
+      if (productData[code]) {
+        const p = productData[code];
+        infoDiv.innerHTML = `
+          <strong>Product Name:</strong> ${p.name}<br>
+          <strong>Quantity:</strong> ${p.quantity}<br>
+          <strong>Unit Price:</strong> Rs. ${p.price}<br>
+          <strong>Delivery Charge:</strong> Rs. ${p.delivery}<br>
+          <strong>Total Price:</strong> Rs. ${p.total}<br>
+          <strong>Warranty:</strong> ${p.warranty}<br>
+          <strong>Buy Date:</strong> ${p.date}<br><br>
+          <strong>Customer Name:</strong> ${p.customer}<br>
+          <strong>Address:</strong> ${p.address}<br>
+          <strong>Phone Number:</strong> ${p.phone}
+        `;
+        infoDiv.style.display = 'block';
+        errorDiv.textContent = "";
+        thanksDiv.style.display = 'block';
+      } else {
+        infoDiv.style.display = 'none';
+        errorDiv.textContent = "Product not found. Please check the barcode.";
+        thanksDiv.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
